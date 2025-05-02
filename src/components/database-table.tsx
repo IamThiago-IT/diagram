@@ -8,8 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Key, GripVertical } from "lucide-react"
 
-import { Table } from "@/interface"
-
 interface DatabaseTableProps {
   table: TableType
   onDragStart: (e: React.MouseEvent<SVGSVGElement>) => void

@@ -70,7 +70,7 @@ export default function DiagramEditor() {
     },
   ])
 
-  const [relations, setRelations] = useState<Relation[]>([
+  const [relations] = useState<Relation[]>([
     {
       id: "rel1",
       sourceTableId: "1",
