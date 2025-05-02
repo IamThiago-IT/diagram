@@ -1,103 +1,188 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import type React from "react"
+
+import { useState } from "react"
+import { DatabaseTable } from "@/components/database-table"
+import { TableRelation } from "@/components/table-relation"
+import { AddTableDialog } from "@/components/add-table-dialog"
+import { Button } from "@/components/ui/button"
+import { Plus } from "lucide-react"
+
+// Define the Table and Relation types
+interface Column {
+  name: string
+  type: string
+  isPrimary: boolean
+}
+
+interface Table {
+  id: string
+  name: string
+  position: { x: number; y: number }
+  columns: Column[]
+}
+
+interface Relation {
+  id: string
+  sourceTableId: string
+  targetTableId: string
+  sourceColumn: string
+  targetColumn: string
+  relationType: "one-to-many" | "many-to-many" | "one-to-one"
+}
+
+export default function DiagramEditor() {
+  const [tables, setTables] = useState<Table[]>([
+    {
+      id: "1",
+      name: "Usuários",
+      position: { x: 100, y: 100 },
+      columns: [
+        { name: "id", type: "integer", isPrimary: true },
+        { name: "nome", type: "varchar", isPrimary: false },
+        { name: "email", type: "varchar", isPrimary: false },
+        { name: "criado_em", type: "timestamp", isPrimary: false },
+      ],
+    },
+    {
+      id: "2",
+      name: "Pedidos",
+      position: { x: 500, y: 100 },
+      columns: [
+        { name: "id", type: "integer", isPrimary: true },
+        { name: "usuario_id", type: "integer", isPrimary: false },
+        { name: "valor_total", type: "decimal", isPrimary: false },
+        { name: "status", type: "varchar", isPrimary: false },
+        { name: "criado_em", type: "timestamp", isPrimary: false },
+      ],
+    },
+    {
+      id: "3",
+      name: "Produtos",
+      position: { x: 300, y: 400 },
+      columns: [
+        { name: "id", type: "integer", isPrimary: true },
+        { name: "nome", type: "varchar", isPrimary: false },
+        { name: "preco", type: "decimal", isPrimary: false },
+        { name: "estoque", type: "integer", isPrimary: false },
+      ],
+    },
+  ])
+
+  const [relations, setRelations] = useState<Relation[]>([
+    {
+      id: "rel1",
+      sourceTableId: "1",
+      targetTableId: "2",
+      sourceColumn: "id",
+      targetColumn: "usuario_id",
+      relationType: "one-to-many",
+    },
+    {
+      id: "rel2",
+      sourceTableId: "3",
+      targetTableId: "2",
+      sourceColumn: "id",
+      targetColumn: "id",
+      relationType: "many-to-many",
+    },
+  ])
+
+  const [isAddTableOpen, setIsAddTableOpen] = useState(false)
+  const [isDragging, setIsDragging] = useState<string | null>(null)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+
+  const handleDragStart = (e: React.MouseEvent<Element>, tableId: string) => {
+    const table = tables.find((t) => t.id === tableId)
+    if (!table) return
+
+    const rect = e.currentTarget.getBoundingClientRect()
+    setDragOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+    setIsDragging(tableId)
+  }
+
+  const handleDrag = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging) return
+
+    setTables((prev) =>
+      prev.map((table) => {
+        if (table.id === isDragging) {
+          return {
+            ...table,
+            position: {
+              x: e.clientX - dragOffset.x,
+              y: e.clientY - dragOffset.y,
+            },
+          }
+        }
+        return table
+      }),
+    )
+  }
+
+  const handleDragEnd = () => {
+    setIsDragging(null)
+  }
+
+  const handleAddTable = (newTable: Omit<Table, "id" | "position">) => {
+    const id = `table-${Date.now()}`
+    setTables((prev) => [
+      ...prev,
+      {
+        ...newTable,
+        id,
+        position: { x: 200, y: 200 },
+      },
+    ])
+    setIsAddTableOpen(false)
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="flex flex-col h-screen">
+      <header className="border-b p-4 flex justify-between items-center bg-white">
+        <h1 className="text-xl font-semibold">Diagrama de Banco de Dados</h1>
+        <Button onClick={() => setIsAddTableOpen(true)} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          Nova Tabela
+        </Button>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div
+        className="flex-1 relative bg-slate-50 overflow-auto"
+        onMouseMove={isDragging ? handleDrag : undefined}
+        onMouseUp={isDragging ? handleDragEnd : undefined}
+        onMouseLeave={isDragging ? handleDragEnd : undefined}
+      >
+        <div className="absolute inset-0 min-w-full min-h-full">
+          {/* Renderizar relações */}
+          {relations.map((relation) => {
+            const sourceTable = tables.find((t) => t.id === relation.sourceTableId)
+            const targetTable = tables.find((t) => t.id === relation.targetTableId)
+
+            if (!sourceTable || !targetTable) return null
+
+            return (
+              <TableRelation
+                key={relation.id}
+                relation={relation}
+                sourcePosition={sourceTable.position}
+                targetPosition={targetTable.position}
+              />
+            )
+          })}
+
+          {/* Renderizar tabelas */}
+          {tables.map((table) => (
+            <DatabaseTable key={table.id} table={table} onDragStart={(e) => handleDragStart(e, table.id)} />
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      <AddTableDialog open={isAddTableOpen} onOpenChange={setIsAddTableOpen} onAddTable={handleAddTable} />
     </div>
-  );
+  )
 }
