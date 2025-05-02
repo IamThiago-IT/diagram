@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Diagram Editor
 
-## Getting Started
+Diagram Editor é uma aplicação web interativa para criar e gerenciar diagramas de banco de dados. Com ela, você pode adicionar tabelas, definir colunas, criar relações entre tabelas e visualizar tudo em uma interface intuitiva.
 
-First, run the development server:
+## Tecnologias Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **[Next.js](https://nextjs.org/):** Framework React para renderização do lado do servidor e construção de aplicações web modernas.
+- **[Tailwind CSS](https://tailwindcss.com/):** Framework CSS utilitário para estilização rápida e eficiente.
+- **[Radix UI](https://www.radix-ui.com/):** Componentes acessíveis e estilizáveis para interfaces de usuário.
+- **[Lucide Icons](https://lucide.dev/):** Ícones modernos e personalizáveis.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Criação de Tabelas:** Adicione tabelas com colunas personalizadas.
+- **Definição de Relações:** Conecte tabelas com relações como "one-to-one", "one-to-many" e "many-to-many".
+- **Interface Drag-and-Drop:** Posicione tabelas livremente no editor.
+- **Visualização de Relações:** Veja as conexões entre tabelas com linhas estilizadas.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Capturas de Tela
 
-## Learn More
+> Adicione aqui capturas de tela ou GIFs mostrando o funcionamento do projeto.
 
-To learn more about Next.js, take a look at the following resources:
+## Como Rodar o Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Pré-requisitos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Certifique-se de ter o seguinte instalado:
 
-## Deploy on Vercel
+- **Node.js** (versão 16 ou superior)
+- **npm**, **yarn**, **pnpm** ou **bun** (gerenciador de pacotes)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Passos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/seu-usuario/diagram-editor.git
+   cd diagram-editor
+
