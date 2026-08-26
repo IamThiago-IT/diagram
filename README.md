@@ -1,39 +1,106 @@
-# Diagram Editor
+# DB Diagram
 
-Diagram Editor é uma aplicação web interativa para criar e gerenciar diagramas de banco de dados. Com ela, você pode adicionar tabelas, definir colunas, criar relações entre tabelas e visualizar tudo em uma interface intuitiva.
+Editor interativo de diagramas de banco de dados. Crie tabelas, defina colunas e tipos, conecte relações com cardinalidade visual (crow's foot), e exporte como SQL DDL, JSON ou PNG.
 
-## Tecnologias Utilizadas
+## Tecnologias
 
-- **[Next.js](https://nextjs.org/):** Framework React para renderização do lado do servidor e construção de aplicações web modernas.
-- **[Tailwind CSS](https://tailwindcss.com/):** Framework CSS utilitário para estilização rápida e eficiente.
-- **[Radix UI](https://www.radix-ui.com/):** Componentes acessíveis e estilizáveis para interfaces de usuário.
-- **[Lucide Icons](https://lucide.dev/):** Ícones modernos e personalizáveis.
+- **[Next.js](https://nextjs.org/)** — Framework React (App Router, Turbopack)
+- **[React Flow](https://reactflow.dev/)** — Motor de diagramas interativos
+- **[Zustand](https://zustand-demo.pmnd.rs/)** — Gerenciamento de estado com undo/redo e persistência
+- **[shadcn/ui](https://ui.shadcn.com/)** — Componentes UI (Radix UI + Tailwind CSS)
+- **[Tailwind CSS v4](https://tailwindcss.com/)** — Estilização utilitária
+- **[Lucide Icons](https://lucide.dev/)** — Ícones
 
 ## Funcionalidades
 
-- **Criação de Tabelas:** Adicione tabelas com colunas personalizadas.
-- **Definição de Relações:** Conecte tabelas com relações como "one-to-one", "one-to-many" e "many-to-many".
-- **Interface Drag-and-Drop:** Posicione tabelas livremente no editor.
-- **Visualização de Relações:** Veja as conexões entre tabelas com linhas estilizadas.
+### Edição de Tabelas
+- **Duplo-clique** em uma tabela para editar nome, colunas, tipos SQL e chaves primárias
+- Adicione, remova e reordene colunas no modal de edição
+- **22 tipos SQL** suportados (integer, varchar, uuid, jsonb, etc.)
+- Botão **X** no header do nó para excluir a tabela
 
-## Capturas de Tela
+### Relações e Cardinalidade
+- Conecte colunas arrastando entre handles (aparecem ao hover)
+- Notação **crow's foot** visual com símbolos SVG (1:1, 1:N, N:M)
+- Labels de cardinalidade nas arestas
+- Selecione uma aresta e clique no **X** para remover
 
-> Adicione aqui capturas de tela ou GIFs mostrando o funcionamento do projeto.
+### Sidebar
+- Lista de tabelas existentes com contagem de colunas
+- **Campo de busca** para filtrar tabelas
+- **Zoom-to**: clique no ícone de foco para navegar até a tabela
+- Seção de **Relações** listando todas as conexões
 
-## Como Rodar o Projeto
+### Controles do Cabeçalho
+- **Undo/Redo** (botões ou `Ctrl+Z` / `Ctrl+Y`)
+- **Exportar** como JSON, SQL DDL ou PNG
+- **Importar** diagrama a partir de arquivo JSON
+- **Limpar** diagrama (com confirmação)
+
+### Persistência
+- Salvamento automático no **localStorage**
+- Dados persistem entre sessões
+
+### Atalhos de Teclado
+| Atalho | Ação |
+|---|---|
+| `Ctrl+Z` | Desfazer |
+| `Ctrl+Y` / `Ctrl+Shift+Z` | Refazer |
+| `Delete` / `Backspace` | Excluir nó ou aresta selecionado |
+
+## Como Rodar
 
 ### Pré-requisitos
 
-Certifique-se de ter o seguinte instalado:
+- **Node.js** 18+ ou **Bun**
+- npm, yarn, pnpm ou bun
 
-- **Node.js** (versão 16 ou superior)
-- **npm**, **yarn**, **pnpm** ou **bun** (gerenciador de pacotes)
+### Instalação
 
-### Passos
+```bash
+git clone https://github.com/IamThiago-IT/diagram.git
+cd diagram
+npm install
+```
 
-1. Clone o repositório:
+### Desenvolvimento
 
-   ```bash
-   git clone https://github.com/seu-usuario/diagram-editor.git
-   cd diagram-editor
+```bash
+npm run dev
+```
 
+Acesse [http://localhost:3000](http://localhost:3000).
+
+### Build
+
+```bash
+npm run build
+npm start
+```
+
+## Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Layout raiz (fonts, metadata)
+│   ├── page.tsx            # Página principal com ReactFlow
+│   └── globals.css         # Tokens de design shadcn/ui
+├── components/
+│   ├── diagram/
+│   │   ├── custom-node.tsx     # Nó de tabela (renderização + edição)
+│   │   ├── custom-edge.tsx     # Aresta com cardinalidade crow's foot
+│   │   ├── edit-table-dialog.tsx # Modal de edição de tabela
+│   │   └── sidebar.tsx         # Sidebar com lista, busca, relações
+│   └── ui/                     # Componentes shadcn/ui
+├── interface/
+│   └── index.tsx            # Types (Table, Column, Relation, SQL_TYPES)
+├── store/
+│   └── diagram-store.ts    # Zustand store (CRUD, undo/redo, persist)
+└── lib/
+    └── utils.ts            # cn() utility
+```
+
+## Licença
+
+MIT
