@@ -1,0 +1,47 @@
+{
+  "common": {
+    "appName": "DB Diagram",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "confirm": "Confirmer",
+    "close": "Fermer"
+  },
+  "header": {
+    "undo": "Annuler (Ctrl+Z)",
+    "redo": "Rétablir (Ctrl+Y)",
+    "export": "Exporter",
+    "import": "Importer",
+    "confirmClear": "Confirmer l'effacement ?",
+    "invalidJson": "Fichier JSON invalide"
+  },
+  "sidebar": {
+    "search": "Rechercher une table...",
+    "drag": "Glisser",
+    "newTable": "Nouvelle Table",
+    "dragInstruction": "Glisser sur le canevas",
+    "tables": "Tables",
+    "relations": "Relations",
+    "noTables": "Aucune table créée",
+    "noTablesFound": "Aucune table trouvée",
+    "noRelations": "Aucune relation créée",
+    "columns": "col",
+    "helpEdit": "Double-cliquez sur un nœud pour modifier.",
+    "helpConnect": "Connectez les colonnes en glissant entre les handles."
+  },
+  "node": {
+    "deleteTable": "Supprimer la table",
+    "addColumnsHint": "Double-cliquez pour ajouter des colonnes"
+  },
+  "dialog": {
+    "editTable": "Modifier la Table",
+    "editDescription": "Configurez le nom et les colonnes de la table.",
+    "tableName": "Nom de la Table",
+    "tableNamePlaceholder": "Nom de la table",
+    "columns": "Colonnes",
+    "togglePk": "Basculer la Clé Primaire",
+    "columnNamePlaceholder": "nom",
+    "newColumn": "Nouvelle colonne...",
+    "deleteTable": "Supprimer la Table"
+  }
+}

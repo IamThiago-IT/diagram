@@ -1,0 +1,47 @@
+{
+  "common": {
+    "appName": "DB Diagram",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "confirm": "確認",
+    "close": "閉じる"
+  },
+  "header": {
+    "undo": "元に戻す (Ctrl+Z)",
+    "redo": "やり直す (Ctrl+Y)",
+    "export": "エクスポート",
+    "import": "インポート",
+    "confirmClear": "クリアしますか？",
+    "invalidJson": "無効なJSONファイル"
+  },
+  "sidebar": {
+    "search": "テーブルを検索...",
+    "drag": "ドラッグ",
+    "newTable": "新しいテーブル",
+    "dragInstruction": "キャンバスにドラッグ",
+    "tables": "テーブル",
+    "relations": "リレーション",
+    "noTables": "テーブルが作成されていません",
+    "noTablesFound": "テーブルが見つかりません",
+    "noRelations": "リレーションが作成されていません",
+    "columns": "列",
+    "helpEdit": "ノートをダブルクリックして編集。",
+    "helpConnect": "ハンドル間をドラッグして列を接続。"
+  },
+  "node": {
+    "deleteTable": "テーブルを削除",
+    "addColumnsHint": "ダブルクリックで列を追加"
+  },
+  "dialog": {
+    "editTable": "テーブルを編集",
+    "editDescription": "テーブル名と列を設定します。",
+    "tableName": "テーブル名",
+    "tableNamePlaceholder": "テーブル名",
+    "columns": "列",
+    "togglePk": "プライマリキー切替",
+    "columnNamePlaceholder": "名前",
+    "newColumn": "新しい列...",
+    "deleteTable": "テーブルを削除"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "common": {
+    "appName": "DB Diagram",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "close": "Cerrar"
+  },
+  "header": {
+    "undo": "Deshacer (Ctrl+Z)",
+    "redo": "Rehacer (Ctrl+Y)",
+    "export": "Exportar",
+    "import": "Importar",
+    "confirmClear": "¿Confirmar limpiar?",
+    "invalidJson": "Archivo JSON inválido"
+  },
+  "sidebar": {
+    "search": "Buscar tabla...",
+    "drag": "Arrastrar",
+    "newTable": "Nueva Tabla",
+    "dragInstruction": "Arrastrar al lienzo",
+    "tables": "Tablas",
+    "relations": "Relaciones",
+    "noTables": "Ninguna tabla creada",
+    "noTablesFound": "Ninguna tabla encontrada",
+    "noRelations": "Ninguna relación creada",
+    "columns": "col",
+    "helpEdit": "Doble clic en un nodo para editar.",
+    "helpConnect": "Conecta columnas arrastrando entre handles."
+  },
+  "node": {
+    "deleteTable": "Eliminar tabla",
+    "addColumnsHint": "Doble clic para agregar columnas"
+  },
+  "dialog": {
+    "editTable": "Editar Tabla",
+    "editDescription": "Configura el nombre y las columnas de la tabla.",
+    "tableName": "Nombre de la Tabla",
+    "tableNamePlaceholder": "Nombre de la tabla",
+    "columns": "Columnas",
+    "togglePk": "Alternar Clave Primaria",
+    "columnNamePlaceholder": "nombre",
+    "newColumn": "Nueva columna...",
+    "deleteTable": "Eliminar Tabla"
+  }
+}
