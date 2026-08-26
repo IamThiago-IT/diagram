@@ -397,8 +397,8 @@ function DiagramFlow() {
     <div className="flex flex-col h-screen bg-background">
       <header className="h-14 border-b bg-background px-4 flex items-center justify-between z-10 relative shadow-sm">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-indigo-600 rounded-md flex items-center justify-center">
-            <div className="w-3 h-3 border-2 border-white rounded-full"></div>
+          <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center">
+            <div className="w-3 h-3 border-2 border-primary-foreground rounded-full"></div>
           </div>
           <h1 className="font-semibold text-foreground">
             {tCommon("appName")}
