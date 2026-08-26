@@ -78,6 +78,19 @@ npm run build
 npm start
 ```
 
+### Docker
+
+```bash
+# Build e rodar
+docker compose up -d
+
+# Ou build manualmente
+docker build -t db-diagram .
+docker run -p 3000:3000 db-diagram
+```
+
+Acesse [http://localhost:3000](http://localhost:3000).
+
 ## Estrutura do Projeto
 
 ```
