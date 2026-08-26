@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   Select,
   SelectContent,
@@ -22,6 +21,7 @@ import {
 } from "@/components/ui/select"
 import { Plus, Trash2, Key } from "lucide-react"
 import { Column, SQL_TYPES, RelationType } from "@/interface"
+import { useTranslations } from "next-intl"
 
 interface EditTableDialogProps {
   open: boolean
@@ -30,8 +30,16 @@ interface EditTableDialogProps {
   columns: Column[]
   onSave: (name: string, columns: Column[]) => void
   onDelete?: () => void
-  onAddEdge?: (sourceCol: string, targetCol: string, relationType: RelationType) => void
-  availableColumns?: { tableId: string; tableName: string; columns: Column[] }[]
+  onAddEdge?: (
+    sourceCol: string,
+    targetCol: string,
+    relationType: RelationType
+  ) => void
+  availableColumns?: {
+    tableId: string
+    tableName: string
+    columns: Column[]
+  }[]
   sourceTableId?: string
 }
 
@@ -43,6 +51,8 @@ export function EditTableDialog({
   onSave,
   onDelete,
 }: EditTableDialogProps) {
+  const t = useTranslations("dialog")
+  const tCommon = useTranslations("common")
   const [name, setName] = useState(initialName)
   const [columns, setColumns] = useState<Column[]>(initialColumns)
   const [newColName, setNewColName] = useState("")
@@ -104,50 +114,50 @@ export function EditTableDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Editar Tabela</DialogTitle>
-          <DialogDescription>
-            Configure o nome e as colunas da tabela.
-          </DialogDescription>
+          <DialogTitle>{t("editTable")}</DialogTitle>
+          <DialogDescription>{t("editDescription")}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="table-name">Nome da Tabela</Label>
+            <Label htmlFor="table-name">{t("tableName")}</Label>
             <Input
               id="table-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Nome da tabela"
+              placeholder={t("tableNamePlaceholder")}
             />
           </div>
 
           <div className="space-y-2">
-            <Label>Colunas</Label>
+            <Label>{t("columns")}</Label>
             <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
               {columns.map((col, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 p-2 bg-slate-50 rounded-md border border-slate-200 group"
+                  className="flex items-center gap-2 p-2 bg-muted rounded-md border border-border group"
                 >
                   <button
                     onClick={() => togglePrimary(col.name)}
                     className="shrink-0"
-                    title="Toggle Primary Key"
+                    title={t("togglePk")}
                   >
                     <Key
                       className={`h-4 w-4 transition-colors ${
                         col.isPrimary
                           ? "text-amber-500"
-                          : "text-slate-300 hover:text-slate-400"
+                          : "text-muted-foreground/40 hover:text-muted-foreground"
                       }`}
                     />
                   </button>
 
                   <Input
                     value={col.name}
-                    onChange={(e) => updateColumnName(col.name, e.target.value)}
+                    onChange={(e) =>
+                      updateColumnName(col.name, e.target.value)
+                    }
                     className="h-7 text-xs flex-1"
-                    placeholder="nome"
+                    placeholder={t("columnNamePlaceholder")}
                   />
 
                   <Select
@@ -159,7 +169,11 @@ export function EditTableDialog({
                     </SelectTrigger>
                     <SelectContent>
                       {SQL_TYPES.map((type) => (
-                        <SelectItem key={type} value={type} className="text-xs">
+                        <SelectItem
+                          key={type}
+                          value={type}
+                          className="text-xs"
+                        >
                           {type}
                         </SelectItem>
                       ))}
@@ -168,7 +182,7 @@ export function EditTableDialog({
 
                   <button
                     onClick={() => removeColumn(col.name)}
-                    className="shrink-0 p-1 text-slate-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="shrink-0 p-1 text-muted-foreground hover:text-destructive transition-colors opacity-0 group-hover:opacity-100"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -181,7 +195,7 @@ export function EditTableDialog({
                 value={newColName}
                 onChange={(e) => setNewColName(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Nova coluna..."
+                placeholder={t("newColumn")}
                 className="h-7 text-xs"
               />
               <Select value={newColType} onValueChange={setNewColType}>
@@ -220,14 +234,18 @@ export function EditTableDialog({
               }}
               className="mr-auto"
             >
-              Excluir Tabela
+              {t("deleteTable")}
             </Button>
           )}
-          <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>
-            Cancelar
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onOpenChange(false)}
+          >
+            {tCommon("cancel")}
           </Button>
           <Button size="sm" onClick={handleSave} disabled={!name.trim()}>
-            Salvar
+            {tCommon("save")}
           </Button>
         </DialogFooter>
       </DialogContent>

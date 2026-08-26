@@ -59,8 +59,8 @@ const initialEdges: Edge[] = [
     sourceHandle: "id-source",
     targetHandle: "user_id-target",
     animated: true,
-    style: { stroke: "#94a3b8" },
-    markerEnd: { type: MarkerType.ArrowClosed, color: "#94a3b8" },
+    style: { stroke: "var(--edge)" },
+    markerEnd: { type: MarkerType.ArrowClosed, color: "var(--edge)" },
     data: { relationType: "one-to-many" as RelationType },
   },
 ]
@@ -176,8 +176,8 @@ export const useDiagramStore = create<DiagramState & DiagramActions>()(
             sourceHandle: connection.sourceHandle || undefined,
             targetHandle: connection.targetHandle || undefined,
             animated: true,
-            style: { stroke: "#94a3b8" },
-            markerEnd: { type: MarkerType.ArrowClosed, color: "#94a3b8" },
+            style: { stroke: "var(--edge)" },
+            markerEnd: { type: MarkerType.ArrowClosed, color: "var(--edge)" },
             data: { relationType },
           }
           set({

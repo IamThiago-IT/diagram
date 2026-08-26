@@ -1,0 +1,47 @@
+{
+  "common": {
+    "appName": "DB Diagram",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "close": "Close"
+  },
+  "header": {
+    "undo": "Undo (Ctrl+Z)",
+    "redo": "Redo (Ctrl+Y)",
+    "export": "Export",
+    "import": "Import",
+    "confirmClear": "Confirm clear?",
+    "invalidJson": "Invalid JSON file"
+  },
+  "sidebar": {
+    "search": "Search table...",
+    "drag": "Drag",
+    "newTable": "New Table",
+    "dragInstruction": "Drag to canvas",
+    "tables": "Tables",
+    "relations": "Relations",
+    "noTables": "No tables created",
+    "noTablesFound": "No tables found",
+    "noRelations": "No relations created",
+    "columns": "col",
+    "helpEdit": "Double-click a node to edit.",
+    "helpConnect": "Connect columns by dragging between handles."
+  },
+  "node": {
+    "deleteTable": "Delete table",
+    "addColumnsHint": "Double-click to add columns"
+  },
+  "dialog": {
+    "editTable": "Edit Table",
+    "editDescription": "Configure the table name and columns.",
+    "tableName": "Table Name",
+    "tableNamePlaceholder": "Table name",
+    "columns": "Columns",
+    "togglePk": "Toggle Primary Key",
+    "columnNamePlaceholder": "name",
+    "newColumn": "New column...",
+    "deleteTable": "Delete Table"
+  }
+}
